@@ -1,0 +1,16 @@
+config_version=5
+
+[application]
+
+config/name="School Femboy Runaway"
+run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.3", "Mobile")
+
+[autoload]
+
+TouchInput="*res://scripts/touch_input.gd"
+GameManager="*res://scripts/game_manager.gd"
+
+[rendering]
+
+renderer/rendering_method="mobile"
