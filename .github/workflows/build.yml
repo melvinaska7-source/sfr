@@ -16,9 +16,13 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      # Опционально: убедимся, что ANDROID_HOME установлен
-      - name: Verify Android SDK
-        run: echo "ANDROID_HOME=$ANDROID_HOME"
+      - name: Download and install Godot export templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/4.3.stable
+          cd ~/.local/share/godot/export_templates/4.3.stable
+          wget -q https://github.com/godotengine/godot-builds/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
+          unzip -q Godot_v4.3-stable_export_templates.tpz
+          rm Godot_v4.3-stable_export_templates.tpz
 
       - name: Export Android APK
         id: export
@@ -30,7 +34,6 @@ jobs:
           export_debug: true
           use_preset_export_path: true
           cache: true
-          # Явно указываем путь к SDK (передаём переменную окружения)
           android_sdk_path: ${{ env.ANDROID_HOME }}
 
       - name: Upload APK

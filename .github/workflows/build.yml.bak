@@ -16,6 +16,10 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      # Опционально: убедимся, что ANDROID_HOME установлен
+      - name: Verify Android SDK
+        run: echo "ANDROID_HOME=$ANDROID_HOME"
+
       - name: Export Android APK
         id: export
         uses: firebelley/godot-export@v8.0.0
@@ -26,6 +30,8 @@ jobs:
           export_debug: true
           use_preset_export_path: true
           cache: true
+          # Явно указываем путь к SDK (передаём переменную окружения)
+          android_sdk_path: ${{ env.ANDROID_HOME }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
